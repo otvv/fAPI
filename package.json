@@ -1,0 +1,26 @@
+{
+  "name": "fapi",
+  "version": "0.0.1",
+  "description": "a simple api that has no purpose made with express",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "fapi",
+    "express"
+  ],
+  "author": "otvv",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.15"
+  }
+}
