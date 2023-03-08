@@ -57,7 +57,7 @@ app.get('/skins', (_request, response) => response.status(OK).json({ testSkins }
 // UPDATE
 app.put('/skins/:id', (request, response) => {
   const { id } = request.params;
-  const { name, team } = request.body;
+  const { name, team, weapon } = request.body;
 
   // find skin inside the 'global' array by the id from the request params
   const updateSkins = testSkins.find((skin) => skin.id === +id); // every data received from "params" is a string
@@ -69,6 +69,7 @@ app.put('/skins/:id', (request, response) => {
   // update data
   updateSkins.name = name;
   updateSkins.team = team;
+  updateSkins.wapon = weapon;
 
   // change the api response with the found skin
   response.status(OK).json({ updateSkins });
