@@ -2,19 +2,19 @@ import fs from 'fs/promises';
 import path, { join } from 'path';
 
 // current file path
-const CURRENT_PATH = '/src/files/skins.json';
+const CURRENT_SKIN_PATH = '/src/files/skins.json';
+const CURRENT_USER_PATH = '/src/files/users.json';
+const DIR_NAME = path.resolve(path.dirname(''));
 
-const readSkinsFile = async () => {
-
+const readFile = async (path) => {
   try {
-    const __dirname = path.resolve(path.dirname(''));
     // read file and parse it
-    const readContent = await fs.readFile(join(__dirname, CURRENT_PATH), 'utf-8');
+    const readContent = await fs.readFile(join(DIR_NAME, path), 'utf-8');
 
     // convert parsed file into a valid OBJECT
-    const skins = JSON.parse(readContent);
+    const parsedData = JSON.parse(readContent);
 
-    return skins;
+    return parsedData;
   } catch (e) {
     throw e;
   }
@@ -22,24 +22,38 @@ const readSkinsFile = async () => {
 
 export const getAllSkins = async () => {
   // read file
-  const file = await readSkinsFile();
+  const file = await readFile(CURRENT_SKIN_PATH);
 
-  // return correct data
   return file.skins;
 }
 
+export const getAllUsers = async () => {
+  // read file
+  const file = await readFile(CURRENT_USER_PATH);
+
+  return file.users;
+}
+
 export const addSkinData = async (newData) => {
-  const __dirname = path.resolve(path.dirname(''));
   // read file first
-  const file = await readSkinsFile();
+  const file = await readFile(CURRENT_SKIN_PATH);
 
   const newSkinData = JSON.stringify({"skins": [...file.skins, newData]});
 
   // write new skin info into file
-  await fs.writeFile(join(__dirname, CURRENT_PATH), newSkinData);
+  await fs.writeFile(join(DIR_NAME, CURRENT_SKIN_PATH), newSkinData);
 
-  // DEBUG PURPOSES ONLY
-  // console.log('[fapi] - newSkinData:', newSkinData);
+  return newData;
+}
+
+export const addUserData = async (newData) => {
+  // read file first
+  const file = await readFile(CURRENT_USER_PATH);
+
+  const newUserData = JSON.stringify({"users": [...file.users, newData]});
+
+  // write new skin info into file
+  await fs.writeFile(join(DIR_NAME, CURRENT_USER_PATH), newUserData);
 
   return newData;
 }
