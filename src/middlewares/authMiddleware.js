@@ -1,7 +1,7 @@
 /*
 */
 
-import { UNAUTHROZIED } from "../global.js"
+import { UNAUTHORIZED } from "../global.js"
 
 export const authMiddleware = (request, response, next) => {
 
@@ -23,7 +23,7 @@ export const authMiddleware = (request, response, next) => {
       return next();
     }
   } else {
-    return response.status(UNAUTHROZIED).json({ message: '[fapi] - unauthorized: invalid auth token' });
+    return response.status(UNAUTHORIZED).json({ message: '[fapi] - unauthorized: invalid auth token' });
   }
 
 }

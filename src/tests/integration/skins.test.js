@@ -13,6 +13,7 @@ const CREATED = 201;
 
 // MOCKS
 const mockStatus = '[fapi] - running'
+const mockAuthToken = 'root'
 const mockSkinToAdd = {
   "id": 1224,
   "name": "Wicked Slick",
@@ -100,10 +101,10 @@ describe('using the method "/GET" in /skins/:id', function () {
 });
 
 describe('using the method "/POST" in /skins', function () {
-  it('check if the API returns the new skin added', async function () {
-    const response = await chai.request(app).post('/skins').send(mockSkinToAdd);
+  it('check if the API returns the new skin list', async function () {
+    const response = await chai.request(app).post('/skins').set('authorization', mockAuthToken).send(mockSkinToAdd);
 
-    // DEBUG PURPOSES ONLY
+    // // DEBUG PURPOSES ONLY
     // console.log('[fapi-test] - response:', response.body);
 
     expect(response.status).to.be.equal(CREATED);
