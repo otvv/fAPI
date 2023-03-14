@@ -43,7 +43,7 @@ export const checkUpdateMiddleware = (request, response, next) => {
       }
     }
 
-    next();
+    return next();
   } else {
     return response.status(BAD_REQUEST).json({ message: badRequestDictionary['invalid'] });
   }

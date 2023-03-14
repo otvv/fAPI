@@ -3,12 +3,12 @@ import chaiHttp from 'chai-http';
 import app from '../../app.js'
 import Sinon from 'sinon';
 import fs from 'fs';
+import { before } from 'mocha';
 
 chai.use(chaiHttp);
 
 // STATUS CODES
 const OK = 200;
-const NOT_FOUND = 404;
 const CREATED = 201;
 
 // MOCKS
@@ -26,7 +26,7 @@ const mockSkinToFetch = {
   "weapon": "MAC-10",
   "team": "T"
 }
-const mockDB = JSON.stringify(
+const mockSkinsDB = JSON.stringify(
   { "skins":
   [
     {
@@ -58,7 +58,7 @@ const mockDB = JSON.stringify(
 );
 
 beforeEach(function () {
-  Sinon.stub(fs.promises, 'readFile').resolves(mockDB);
+  Sinon.stub(fs.promises, 'readFile').resolves(mockSkinsDB);
   Sinon.stub(fs.promises, 'writeFile').resolves();
 });
 
@@ -104,7 +104,7 @@ describe('using the method "/POST" in /skins', function () {
   it('check if the API returns the new skin list', async function () {
     const response = await chai.request(app).post('/skins').set('authorization', mockAuthToken).send(mockSkinToAdd);
 
-    // // DEBUG PURPOSES ONLY
+    // DEBUG PURPOSES ONLY
     // console.log('[fapi-test] - response:', response.body);
 
     expect(response.status).to.be.equal(CREATED);
