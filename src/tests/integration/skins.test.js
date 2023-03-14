@@ -3,7 +3,6 @@ import chaiHttp from 'chai-http';
 import app from '../../app.js'
 import Sinon from 'sinon';
 import fs from 'fs';
-import { before } from 'mocha';
 
 chai.use(chaiHttp);
 

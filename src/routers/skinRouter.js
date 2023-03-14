@@ -3,7 +3,7 @@
 
 import express from "express";
 import { addSkinData, getAllSkins } from "../utils.js";
-import { CREATED, OK, NOT_FOUND } from '../global.js';
+import { CREATED, OK, NOT_FOUND, NO_CONTENT } from '../global.js';
 import { checkIdMiddleware } from "../middlewares/checkIDMiddleware.js";
 import { checkUpdateMiddleware } from "../middlewares/checkUpdateMiddleware.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
@@ -103,8 +103,7 @@ skinRouter.delete('/:id', authMiddleware, checkIdMiddleware, async (request, res
     const arrayPosition = skins.findIndex((skin) => skin.id === +id);
     skins.splice(arrayPosition, 1);
 
-    // send response in case everything goes well
-    return response.status(OK).json(skins).end();
+    return response.status(NO_CONTENT).json(skins).end();
 
   } catch (error) {
     return next(error);

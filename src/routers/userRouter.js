@@ -2,7 +2,7 @@
 */
 
 import express from 'express';
-import { OK, CREATED, NOT_FOUND } from '../global.js';
+import { OK, CREATED, NOT_FOUND, NO_CONTENT } from '../global.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import { checkIdMiddleware } from '../middlewares/checkIDMiddleware.js';
 import { checkUpdateMiddleware } from '../middlewares/checkUpdateMiddleware.js';
@@ -103,8 +103,7 @@ userRouter.delete('/:id', authMiddleware, checkIdMiddleware, async (request, res
     const arrayPosition = users.findIndex((user) => user.id === +id);
     users.splice(arrayPosition, 1);
 
-    // send response in case everything goes well
-    return response.status(OK).json(users).end();
+    return response.status(NO_CONTENT).json(users).end();
 
   } catch (error) {
     return next(error);
