@@ -138,8 +138,6 @@ curl -i -H 'Accept: application/json' -X DELETE http://localhost:7777/skins/1229
 
 ```json
 HTTP/1.1 204 No Content
-
-it will show an object with the updated skin list after the deletion
 ```
 
 
