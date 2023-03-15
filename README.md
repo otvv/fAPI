@@ -231,7 +231,7 @@ HTTP/1.1 200 OK
 
 
 ```bash
-curl -i -H 'Accept: application/json' -X PUT -d 'name=User%205&role=lead&team=xs' http://localhost:7777/users/5
+curl -i -H 'Accept: application/json' -X PUT -d 'name=User%205&role=lead&team=f' http://localhost:7777/users/5
 ```
 
 **response:**
