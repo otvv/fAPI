@@ -1,4 +1,4 @@
-# fapi ⚙️
+# fAPI ⚙️
 
 A simple *rest* api without any real-world purpose (*yet*).
 
