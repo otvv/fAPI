@@ -12,14 +12,15 @@ curl -i -H 'Accept: application/json' http://localhost:7777/
 
 **response:**
 
-```bash
+```json
 HTTP/1.1 200 OK
 
-{ message: [fapi] - running }
+{ 
+ "message": "[fapi] - running" 
+}
 ```
 
 ---
-
 
 
 **possible requests from the skins route (/skins)**
@@ -32,11 +33,10 @@ curl -i -H 'Accept: application/json' http://localhost:7777/skins/
 
 **response:**
 
-```bash
+```json
 HTTP/1.1 200 OK
 
 {
- "skins":
   [
     {
       "id": 1228,
@@ -67,7 +67,6 @@ HTTP/1.1 200 OK
 ```
 
 
-
 `POST /skins`
 
 ```bash
@@ -76,7 +75,7 @@ curl -i -H 'Accept: application/json' -d 'id=1224&name=Wicked%20Slick&weapon=P20
 
 **response:**
 
-```bash
+```json
 HTTP/1.1 201 Created
 
 {
@@ -88,7 +87,6 @@ HTTP/1.1 201 Created
 ```
 
 
-
 `GET /skins/:id`
 
 ```bash
@@ -97,7 +95,7 @@ curl -i -H 'Accept: application/json' http://localhost:7777/skins/1229
 
 **response:**
 
-```bash
+```json
 HTTP/1.1 200 OK
 
 {
@@ -118,7 +116,7 @@ curl -i -H 'Accept: application/json' -X PUT -d 'name=Neon%20Rider&weapon=MAC-10
 
 **response:**
 
-```bash
+```json
 HTTP/1.1 200 OK
 
 {
@@ -130,7 +128,6 @@ HTTP/1.1 200 OK
 ```
 
 
-
 `DELETE /skins/:id`
 
 ```bash
@@ -139,16 +136,131 @@ curl -i -H 'Accept: application/json' -X DELETE http://localhost:7777/skins/1229
 
 **response:**
 
-```bash
+```json
 HTTP/1.1 204 No Content
 
 it will show an object with the updated skin list after the deletion
 ```
 
+
 ---
 
 **possible requests from the users route (/users)**
 
+`GET /users`
+
+```bash
+curl -i -H 'Accept: application/json' http://localhost:7777/users/
+```
+
+**response:**
+
+```json
+HTTP/1.1 200 OK
+
+{
+  [
+    {
+      "id": 1,
+      "name": "User 1",
+      "role": "lead",
+      "team": "f"
+    },
+    {
+      "id": 2,
+      "name": "User 2",
+      "role": "lead",
+      "team": "f"
+    },
+    {
+      "id": 3,
+      "name": "User 3",
+      "role": "dev",
+      "team": "xs"
+    },
+    {
+      "id": 4,
+      "name": "Sakkaku",
+      "role": "dev",
+      "team": "xs"
+    }
+  ]
+}
+```
+
+
+`POST /users`
+
+```bash
+curl -i -H 'Accept: application/json' -d 'id=5&name=User%205&role=dev&team=xs' http://localhost:7777/users
+```
+
+**response:**
+
+```json
+HTTP/1.1 201 Created
+
+{
+  "id": 5,
+  "name": "User 5",
+  "role": "dev",
+  "team": "xs"
+}
+```
+
+
+`GET /users/:id`
+
+```bash
+curl -i -H 'Accept: application/json' http://localhost:7777/users/4
+```
+
+**response:**
+
+```json
+HTTP/1.1 200 OK
+
+{
+   "id": 4,
+   "name": "Sakkaku",
+   "role": "dev",
+   "team": "xs"
+}
+```
+
+
+`PUT /users/:id`
+
+
+```bash
+curl -i -H 'Accept: application/json' -X PUT -d 'name=User%205&role=lead&team=xs' http://localhost:7777/users/5
+```
+
+**response:**
+
+```json
+HTTP/1.1 200 OK
+
+{
+   "id": 5,
+   "name": "User 5",
+   "role": "lead",
+   "team": "f"
+}
+```
+
+
+`DELETE /users/:id`
+
+```bash
+curl -i -H 'Accept: application/json' -X DELETE http://localhost:7777/users/5
+```
+
+**response:**
+
+```json
+HTTP/1.1 204 No Content
+```
 
 
 ---
