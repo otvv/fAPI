@@ -21,7 +21,8 @@ HTTP/1.1 200 OK
 ```
 
 ---
-
+---
+---
 
 **possible requests from the skins route (/skins)**
 
@@ -140,7 +141,8 @@ curl -i -H 'Accept: application/json' -X DELETE http://localhost:7777/skins/1229
 HTTP/1.1 204 No Content
 ```
 
-
+---
+---
 ---
 
 **possible requests from the users route (/users)**
