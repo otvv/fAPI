@@ -26,6 +26,23 @@ HTTP/1.1 200 OK
 
 **possible requests from the skins route (/skins)**
 
+`POST /skins`
+
+```bash
+curl -i -H 'Accept: application/json' -d 'id=1224&name=Wicked%20Slick&weapon=P2000&team=CT' http://localhost:7777/skins
+```
+
+**response:**
+
+```json
+HTTP/1.1 201 Created
+
+{
+ "createdId": 1224
+}
+```
+
+
 `GET /skins`
 
 ```bash
@@ -68,26 +85,6 @@ HTTP/1.1 200 OK
 ```
 
 
-`POST /skins`
-
-```bash
-curl -i -H 'Accept: application/json' -d 'id=1224&name=Wicked%20Slick&weapon=P2000&team=CT' http://localhost:7777/skins
-```
-
-**response:**
-
-```json
-HTTP/1.1 201 Created
-
-{
-  "id": 1224,
-  "name": "Wicked Slick",
-  "weapon": "P2000",
-  "team": "CT"
-}
-```
-
-
 `GET /skins/:id`
 
 ```bash
@@ -121,10 +118,7 @@ curl -i -H 'Accept: application/json' -X PUT -d 'name=Neon%20Rider&weapon=MAC-10
 HTTP/1.1 200 OK
 
 {
-   "id": 1229,
-   "name": "Neon Rider",
-   "weapon": "MAC-10",
-   "team": "T"
+   "updatedId": 1229
 }
 ```
 
@@ -146,6 +140,23 @@ HTTP/1.1 204 No Content
 ---
 
 **possible requests from the users route (/users)**
+
+`POST /users`
+
+```bash
+curl -i -H 'Accept: application/json' -d 'id=5&name=User%205&role=dev&team=xs' http://localhost:7777/users
+```
+
+**response:**
+
+```json
+HTTP/1.1 201 Created
+
+{
+  "createdId": 5
+}
+```
+
 
 `GET /users`
 
@@ -189,26 +200,6 @@ HTTP/1.1 200 OK
 ```
 
 
-`POST /users`
-
-```bash
-curl -i -H 'Accept: application/json' -d 'id=5&name=User%205&role=dev&team=xs' http://localhost:7777/users
-```
-
-**response:**
-
-```json
-HTTP/1.1 201 Created
-
-{
-  "id": 5,
-  "name": "User 5",
-  "role": "dev",
-  "team": "xs"
-}
-```
-
-
 `GET /users/:id`
 
 ```bash
@@ -242,10 +233,7 @@ curl -i -H 'Accept: application/json' -X PUT -d 'name=User%205&role=lead&team=f'
 HTTP/1.1 200 OK
 
 {
-   "id": 5,
-   "name": "User 5",
-   "role": "lead",
-   "team": "f"
+   "updatedId": 5
 }
 ```
 
