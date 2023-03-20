@@ -1,7 +1,7 @@
 /*
 */
 
-import { UNAUTHORIZED } from "../global.js"
+import { UNAUTHORIZED } from "../globals.js"
 
 export const authMiddleware = (request, response, next) => {
 

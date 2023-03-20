@@ -1,7 +1,7 @@
 /*
 */
 
-import { BAD_REQUEST } from "../global.js";
+import { BAD_REQUEST } from "../globals.js";
 
 export const checkIdMiddleware = (request, response, next) => {
   const { id } = request.params;

@@ -1,7 +1,7 @@
 /*
 */
 
-import { BAD_REQUEST } from "../global.js";
+import { BAD_REQUEST } from "../globals.js";
 
 export const checkUpdateMiddleware = (request, response, next) => {
   const { name, team, weapon, role } = request.body;
