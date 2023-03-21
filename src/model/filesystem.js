@@ -21,11 +21,11 @@ export const read = async (filePath) => {
   }
 };
 
-  export const write = async (filePath, payload) => {
-    try {
-      // write payload into desired file
-      await fs.writeFile(join(CUR_DIR_NAME, filePath), payload);
-    } catch (e) {
-      throw e;
-    }
-  };
+export const write = async (filePath, payload) => {
+  try {
+    // write payload into desired file
+    await fs.writeFile(join(CUR_DIR_NAME, filePath), payload);
+  } catch (e) {
+    throw e;
+  }
+};

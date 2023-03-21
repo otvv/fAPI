@@ -13,5 +13,4 @@ export const authMiddleware = (request, response, next) => {
   } else {
     return response.status(statusCode.UNAUTHORIZED).json({ message: '[fapi] - unauthorized: invalid auth token' });
   }
-
 }

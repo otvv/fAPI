@@ -42,6 +42,7 @@ export const updateUser = async (userId, payload) => {
   const file = await findById(userId);
 
   // edit user with received payload info
+  file.id = payload.id;
   file.name = payload.name;
   file.team = payload.team;
   file.role = payload.role;
@@ -60,7 +61,7 @@ export const deleteUser = async (userId) => {
   const userToDelete = file.findIndex((user) => (+user.id === +userId));
 
   // get "removed id" from DELETE operation
-  const removedId = (userToDelete + 1);
+  const removedId = (+userToDelete + 1);
 
   file.splice(userToDelete, ELEMENTS_TO_REMOVE);
 

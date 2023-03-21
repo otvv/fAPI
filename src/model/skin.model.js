@@ -60,7 +60,7 @@ export const deleteSkin = async (skinId) => {
   const skinToDelete = file.findIndex((skin) => (+skin.id === +skinId));
 
   // get "removed id" from DELETE operation
-  const removedId = (skinToDelete + 1);
+  const removedId = (+skinToDelete + 1);
 
   file.splice(skinToDelete, ELEMENTS_TO_REMOVE);
 
@@ -68,5 +68,5 @@ export const deleteSkin = async (skinId) => {
   const parsedData = JSON.stringify({ "skins": [...file] });
   await write(CURRENT_SKIN_PATH, parsedData);
 
-  return +removedId;
+  return removedId;
 };
