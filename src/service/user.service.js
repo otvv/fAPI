@@ -22,7 +22,7 @@ export const findById = async (userId) => {
   const user = await userModel.findById(userId);
 
   if (!user) {
-    return { type: 'NOT_FOUND', message: '[fapi] - user not found with the specified id' };
+    return { type: 'NOT_FOUND', message: '[fapi] - not found: user not found with the specified id' };
   }
 
   return { type: null, message: user };

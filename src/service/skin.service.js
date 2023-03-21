@@ -22,7 +22,7 @@ export const findById = async (skinId) => {
   const skin = await skinModel.findById(skinId);
 
   if (!skin) {
-    return { type: 'NOT_FOUND', message: '[fapi] - skin not found with the specified id' };
+    return { type: 'NOT_FOUND', message: '[fapi] - not found: skin not found with the specified id' };
   }
 
   return { type: null, message: skin };
