@@ -2,11 +2,11 @@
 */
 
 import express from "express";
-import { CREATED, OK, NO_CONTENT } from '../globals.js';
-import { checkIdMiddleware } from '../middlewares/checkIdMiddleware.js';
-import { checkUpdateMiddleware } from '../middlewares/checkUpdateMiddleware.js';
-import { authMiddleware } from '../middlewares/authMiddleware.js';
-import * as skinModel from '../model/skin.model.js';
+import { OK, CREATED, NO_CONTENT } from '../globals.js';
+import { authMiddleware } from '../middlewares/auth.middleware.js';
+import { checkIdMiddleware } from '../middlewares/id.middleware.js';
+import { checkUpdateMiddleware } from '../middlewares/update.middleware.js';
+import * as skinService from '../service/skin.service.js';
 
 export const skinRouter = express.Router();
 
@@ -15,12 +15,12 @@ export const skinRouter = express.Router();
 //
 skinRouter.post('/', authMiddleware, checkUpdateMiddleware, async (request, response, next) => {
   try {
-    const receivedPayload = { ...request.body };
+    const receivedData = { ...request.body };
 
     // insert a new skin in the table
-    const createdId = await skinModel.insertSkin(receivedPayload);
+    const payload = await skinService.insertSkin(receivedData);
 
-    return response.status(CREATED).json({ createdId: createdId });
+    return response.status(CREATED).json(payload.message);
   } catch (error) {
     return next(error); // call error middleware
   }
@@ -32,9 +32,9 @@ skinRouter.post('/', authMiddleware, checkUpdateMiddleware, async (request, resp
 skinRouter.get('/', async (_request, response, next) => {
   try {
     // find all skins
-    const skins = await skinModel.findAll();
+    const payload = await skinService.findAll();
 
-    return response.status(OK).json(skins);
+    return response.status(OK).json(payload.message);
   } catch (error) {
     return next(error);
   }
@@ -43,10 +43,10 @@ skinRouter.get('/:id', checkIdMiddleware, async (request, response, next) => {
   try {
     const { id } = request.params;
 
-    // find user by id
-    const skin = await skinModel.findById(id);
+    // find skin by id
+    const payload = await skinService.findById(id);
 
-    return response.status(OK).json(skin);
+    return response.status(OK).json(payload.message);
   } catch (error) {
     return next(error);
   }
@@ -60,11 +60,10 @@ skinRouter.put('/:id', checkIdMiddleware, checkUpdateMiddleware, async (request,
     const { id } = request.params;
     const { name, team, weapon } = request.body;
 
-    // update skin by id
-    const changedId = await skinModel.updateSkin(id, { name, team, weapon });
+    // update skin data by its id
+    const payload = await skinService.updateSkin(id, { name, team, weapon });
 
-    // change the api response with the updated skin id
-    return response.status(OK).json({ changedId: changedId });
+    return response.status(OK).json(payload.message);
   } catch (error) {
     return next(error);
   }
@@ -77,11 +76,10 @@ skinRouter.delete('/:id', authMiddleware, checkIdMiddleware, async (request, res
   try {
     const { id } = request.params;
 
-    // delete skin by id
-    const removedId = await skinModel.deleteSkin(id);
+    // delete skin by its id
+    const payload = await skinService.deleteSkin(id);
 
-    // change the api response with the removed skin id
-    return response.status(NO_CONTENT).end(`removedId: ${removedId}`);
+    return response.status(NO_CONTENT).end(`${payload.message}`);
   } catch (error) {
     return next(error);
   }

@@ -3,10 +3,10 @@
 
 import express from 'express';
 import { OK, CREATED, NO_CONTENT } from '../globals.js';
-import { authMiddleware } from '../middlewares/authMiddleware.js';
-import { checkIdMiddleware } from '../middlewares/checkIdMiddleware.js';
-import { checkUpdateMiddleware } from '../middlewares/checkUpdateMiddleware.js';
-import * as userModel from '../model/user.model.js';
+import { authMiddleware } from '../middlewares/auth.middleware.js';
+import { checkIdMiddleware } from '../middlewares/id.middleware.js';
+import { checkUpdateMiddleware } from '../middlewares/update.middleware.js';
+import * as userService from '../service/user.service.js';
 
 export const userRouter = express.Router();
 
@@ -15,12 +15,12 @@ export const userRouter = express.Router();
 //
 userRouter.post('/', authMiddleware, checkUpdateMiddleware, async (request, response, next) => {
   try {
+    const receivedData = { ...request.body };
+
     // insert a new user in the table
-    const receivedPayload = { ...request.body };
+    const payload = await userService.insertUser(receivedData);
 
-    const createdId = await userModel.insertUser(receivedPayload);
-
-    return response.status(CREATED).json({ createdId: createdId });
+    return response.status(CREATED).json(payload.message);
   } catch (error) {
     return next(error);
   }
@@ -32,9 +32,9 @@ userRouter.post('/', authMiddleware, checkUpdateMiddleware, async (request, resp
 userRouter.get('/', authMiddleware, async (_request, response, next) => {
   try {
     // find all users
-    const users = await userModel.findAll();
+    const payload = await userService.findAll();
 
-    return response.status(OK).json(users);
+    return response.status(OK).json(payload.message);
   } catch (error) {
     return next(error);
   }
@@ -44,9 +44,9 @@ userRouter.get('/:id', authMiddleware, checkIdMiddleware, async (request, respon
     const { id } = request.params;
 
     // find user by id
-    const user = await userModel.findById(id);
+    const payload = await userService.findById(id);
 
-    return response.status(OK).json(user);
+    return response.status(OK).json(payload.message);
   } catch (error) {
     return next(error);
   }
@@ -60,11 +60,10 @@ userRouter.put('/:id', authMiddleware, checkIdMiddleware, checkUpdateMiddleware,
     const { id } = request.params;
     const { name, team, role } = request.body;
 
-    // update user by id
-    const changedId = await userModel.updateUser(id, { name, team, role });
+    // update user by its id
+    const payload = await userService.updateUser(id, { name, team, role });
 
-    // change the api response with updated user id
-    return response.status(OK).json({ changedId: changedId });
+    return response.status(OK).json(payload.message);
   } catch (error) {
     return next(error);
   }
@@ -77,11 +76,10 @@ userRouter.delete('/:id', authMiddleware, checkIdMiddleware, async (request, res
   try {
     const { id } = request.params;
 
-    // delete user by id
-    const removedId = await userModel.deleteUser(id);
+    // delete user by its id
+    const payload = await userService.deleteUser(id);
 
-    // change the api response with the removed user id
-    return response.status(NO_CONTENT).end(`removedId: ${removedId}`);
+    return response.status(NO_CONTENT).end(`${payload.message}`);
   } catch (error) {
     return next(error);
   }

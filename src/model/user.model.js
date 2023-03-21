@@ -1,4 +1,7 @@
-import { read, write } from './read.js';
+/*
+*/
+
+import { read, write } from './filesystem.js';
 
 const CURRENT_USER_PATH = '/src/data/users.json';
 
@@ -11,7 +14,7 @@ export const findAll = async () => {
 export const findById = async (userId) => {
   const file = await findAll();
 
-  const userFound = file.find((user) => user.id === +userId);
+  const userFound = file.find((user) => (+user.id === +userId));
   // every data (in this case the :id) received from the url is a string
   // so we have to change it to a int number or w/e type you might need to use.
 
@@ -54,7 +57,7 @@ export const deleteUser = async (userId) => {
   const ELEMENTS_TO_REMOVE = 1;
 
   // TODO: check if the user that we want to delete exists first
-  const userToDelete = file.findIndex((user) => user.id === +userId);
+  const userToDelete = file.findIndex((user) => (+user.id === +userId));
 
   // get "removed id" from DELETE operation
   const removedId = (userToDelete + 1);
