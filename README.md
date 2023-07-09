@@ -191,7 +191,7 @@ HTTP/1.1 200 OK
     },
     {
       "id": 4,
-      "name": "Sakkaku",
+      "name": "User 4",
       "role": "dev",
       "team": "xs"
     }
@@ -213,7 +213,7 @@ HTTP/1.1 200 OK
 
 {
    "id": 4,
-   "name": "Sakkaku",
+   "name": "User 4",
    "role": "dev",
    "team": "xs"
 }
