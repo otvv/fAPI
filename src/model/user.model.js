@@ -8,7 +8,7 @@ const CURRENT_USER_PATH = '/src/data/users.json';
 export const findAll = async () => {
   const file = await read(CURRENT_USER_PATH);
 
-  return file.users;
+  return file?.users || [];
 };
 
 export const findById = async (userId) => {

@@ -5,7 +5,7 @@ import fs from 'fs/promises';
 import path, { join } from 'path';
 
 // CUR_DIR_NAME
-const CUR_DIR_NAME = path.resolve(path.dirname(''));
+export const CUR_DIR_NAME = path.resolve(path.dirname(''));
 
 export const read = async (filePath) => {
   try {
